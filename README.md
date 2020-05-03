@@ -1,5 +1,12 @@
 # Movie-First
 Movie Application: my second app that takes info from https://www.themoviedb.org
+Google Play Market: https://play.google.com/store/apps/details?id=com.movieziv.moviefirst
+
+Architecture components were used in the development of this application.
+- Room
+- Retrofit
+- ViewModel
+- LiveData
 
 It shows to Users upcoming, top-rated and popular movies. 
 
