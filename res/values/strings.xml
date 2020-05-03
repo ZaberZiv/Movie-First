@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Movie First</string>
+
+    <string name="movie_nav">Movies</string>
+    <string name="search_nav">Search</string>
+    <string name="favorites_nav">Favorites</string>
+
+    <string name="menu_upcoming">Upcoming</string>
+    <string name="menu_popular">Popular</string>
+    <string name="menu_top_rated">Top Rated</string>
+    <string name="menu_choose_genre">Choose a genre</string>
+    <string name="menu_see_all">See All</string>
+
+    <string name="movie_genre">Genre</string>
+    <string name="movie_budget">Budget</string>
+    <string name="sec_title_release_date">Release Date</string>
+    <string name="sec_title_rating">Rating</string>
+    <string name="button_watch_trailer">Watch Trailer</string>
+    <string name="movie_overview">Overview</string>
+    <string name="similar_movies">Similar Movies</string>
+
+    <string name="show_all_movies">All movies</string>
+
+    <string name="favorites_title">Your favorites movies</string>
+
+    <string name="search_title">Find your movie</string>
+    <string name="hint">Terminator</string>
+
+    <string name="image_description">Poster image</string>
+    <string name="icon_description">Favorite image</string>
+
+    <string name="logo_description">Logo TMDB</string>
+    <string name="splash_text_bottom">the source www.themoviedb.org</string>
+</resources>
