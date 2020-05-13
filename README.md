@@ -5,9 +5,13 @@ Google Play Market: https://play.google.com/store/apps/details?id=com.movieziv.m
 
 <b>Architecture components were used in the development of this application.
 - Room
-- Retrofit
 - ViewModel
-- LiveData</b>
+- LiveData
+
+Other libraries:
+- Retrofit
+- EventBus
+- RecyclerView</b>
 
 It shows to Users upcoming, top-rated and popular movies. 
 
