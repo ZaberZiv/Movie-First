@@ -38,7 +38,7 @@ public class DetailsViewModel extends ViewModel {
         return retrofitRepository.getGenreAndBudgetLiveData(id);
     }
 
-    public MutableLiveData<Result> getListOfMovieDetails(int id) {
-        return retrofitRepository.getMovieDetailsLiveData(id);
-    }
+//    public MutableLiveData<Result> getListOfMovieDetails(int id) {
+//        return retrofitRepository.getMovieDetailsLiveData(id);
+//    }
 }

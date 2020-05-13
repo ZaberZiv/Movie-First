@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.JobIntentService;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,11 +16,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movieziv.moviefirst.R;
+import com.movieziv.moviefirst.activities.MovieDetailActivity;
 import com.movieziv.moviefirst.adapter.MoviesAdapter;
 import com.movieziv.moviefirst.database.TableMovies;
+import com.movieziv.moviefirst.eventbus.ResultEventBus;
 import com.movieziv.moviefirst.retrofit.movies.Result;
 import com.movieziv.moviefirst.viewmodel.DbViewModel;
 import com.movieziv.moviefirst.viewmodel.DetailsViewModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +33,12 @@ import java.util.List;
 public class FavoritesFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private DbViewModel mDbViewModel;
-    private DetailsViewModel mDetailsViewModel;
     private ArrayList<Result> mList = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
-
-        mDetailsViewModel = new ViewModelProvider(this)
-                .get(DetailsViewModel.class);
 
         mDbViewModel = new ViewModelProvider
                 .AndroidViewModelFactory(getActivity().getApplication())
@@ -52,7 +54,6 @@ public class FavoritesFragment extends Fragment {
 
         mList.clear();
         load();
-
         return view;
     }
 
@@ -60,35 +61,27 @@ public class FavoritesFragment extends Fragment {
         mDbViewModel.getMovies().observe(this, new Observer<List<TableMovies>>() {
             @Override
             public void onChanged(List<TableMovies> tableMovies) {
-                loadFromDatabase((ArrayList<TableMovies>) tableMovies);
+                mDbViewModel.getResultobj(tableMovies);
             }
         });
     }
 
-    private void loadFromDatabase(ArrayList<TableMovies> list) {
-        for (int i = 0; i < list.size(); i++) {
-            mDetailsViewModel.getListOfMovieDetails(list.get(i).getMovie_id()).observe(this, new Observer<Result>() {
-                @Override
-                public void onChanged(Result result) {
+    @Subscribe
+    public void onEvent(ResultEventBus bus) {
+        mList.add(bus.result);
+        MoviesAdapter adapter = new MoviesAdapter(mList, getContext(), 2);
+        mRecyclerView.setAdapter(adapter);
+    }
 
-                    mList.add(result);
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
-                    for (int i = 0; i < mList.size() - 1; i++) {
-                        for (int k = mList.size() - 1; k > i; k--) {
-                            if (mList.get(i).equals(mList.get(k))) {
-                                mList.remove(mList.get(k));
-                            }
-                        }
-                    }
-
-                    if (mList != null) {
-                        MoviesAdapter adapter = new MoviesAdapter(mList, getContext(), 2);
-                        mRecyclerView.setAdapter(adapter);
-                    } else {
-                        Log.i("onChanged", "mList is null");
-                    }
-                }
-            });
-        }
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }

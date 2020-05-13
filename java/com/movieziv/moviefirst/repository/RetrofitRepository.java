@@ -3,15 +3,23 @@ package com.movieziv.moviefirst.repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.movieziv.moviefirst.activities.ShowAllMoviesActivity;
+import com.movieziv.moviefirst.database.MovieDatabase;
+import com.movieziv.moviefirst.database.MoviesDao;
+import com.movieziv.moviefirst.database.TableMovies;
+import com.movieziv.moviefirst.eventbus.ResultEventBus;
 import com.movieziv.moviefirst.retrofit.JSONPlaceHolderApi;
 import com.movieziv.moviefirst.retrofit.RetrofitInstance;
 import com.movieziv.moviefirst.retrofit.movies.Movies;
 import com.movieziv.moviefirst.retrofit.movies.Result;
 import com.movieziv.moviefirst.retrofit.trailers.MediaVideo;
 import com.movieziv.moviefirst.retrofit.trailers.Trailer;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +41,19 @@ public class RetrofitRepository {
     private MutableLiveData<List<Result>> mutableLiveData6 = new MutableLiveData<>();
     private MutableLiveData<List<Result>> mutableLiveData7 = new MutableLiveData<>();
     private MutableLiveData<Movies> mutableLiveData8 = new MutableLiveData<>();
-    private MutableLiveData<Result> mutableLiveData9 = new MutableLiveData<>();
+    private MutableLiveData<List<Result>> mutableLiveData9 = new MutableLiveData<>();
     private MutableLiveData<String> mutableLiveDataString = new MutableLiveData<>();
 
     private Application application;
+    private MoviesDao moviesDao;
 
-    public RetrofitRepository() {}
+    public RetrofitRepository() {
+    }
 
     public RetrofitRepository(Application application) {
         this.application = application;
+        MovieDatabase database = MovieDatabase.getInstance(application);
+        moviesDao = database.moviesDao();
     }
 
     public MutableLiveData<List<Result>> getUpcomingLiveData() {
@@ -293,11 +305,15 @@ public class RetrofitRepository {
         return mutableLiveData8;
     }
 
-    public MutableLiveData<Result> getMovieDetailsLiveData(int id) {
+    public void getListOfIds(List<TableMovies> list) {
+        for (TableMovies l : list) {
+            getMovieDetailsLiveData(l.getMovie_id());
+        }
+    }
+
+    public void getMovieDetailsLiveData(int id) {
         JSONPlaceHolderApi api = RetrofitInstance.getService();
-
         Call<Result> call = api.getResultDetails(id);
-
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
@@ -306,7 +322,7 @@ public class RetrofitRepository {
                     return;
                 }
                 Result posts = response.body();
-                mutableLiveData9.setValue(posts);
+                EventBus.getDefault().post(new ResultEventBus(posts));
             }
 
             @Override
@@ -314,7 +330,6 @@ public class RetrofitRepository {
                 Log.i("onFailure", Objects.requireNonNull(t.getMessage()));
             }
         });
-        return mutableLiveData9;
     }
 
     public MutableLiveData<String> getVideoLiveData(int id) {

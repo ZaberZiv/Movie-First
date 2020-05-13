@@ -16,7 +16,6 @@ public class DbRepository {
 
     private MoviesDao moviesDao;
     private LiveData<List<TableMovies>> allMovies;
-    private LiveData<TableMovies> movieById;
 
     public DbRepository(Application application) {
         MovieDatabase database = MovieDatabase.getInstance(application);
@@ -45,11 +44,10 @@ public class DbRepository {
     }
 
     public LiveData<TableMovies> getMovie(int id) {
-        movieById = moviesDao.getMovieById(id);
-        return movieById;
+        return moviesDao.getMovieById(id);
     }
 
-    private static class InsertMovieAsyncTask extends AsyncTask<TableMovies, Void, Void> {
+      private static class InsertMovieAsyncTask extends AsyncTask<TableMovies, Void, Void> {
         private MoviesDao moviesDao;
 
         public InsertMovieAsyncTask(MoviesDao moviesDao) {
