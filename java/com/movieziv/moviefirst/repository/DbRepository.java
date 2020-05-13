@@ -47,7 +47,7 @@ public class DbRepository {
         return moviesDao.getMovieById(id);
     }
 
-      private static class InsertMovieAsyncTask extends AsyncTask<TableMovies, Void, Void> {
+    private static class InsertMovieAsyncTask extends AsyncTask<TableMovies, Void, Void> {
         private MoviesDao moviesDao;
 
         public InsertMovieAsyncTask(MoviesDao moviesDao) {
