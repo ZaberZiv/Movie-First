@@ -9,12 +9,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = TableMovies.class, version = 1)
 public abstract class MovieDatabase extends RoomDatabase {
 
     private static MovieDatabase instance;
-
     public abstract MoviesDao moviesDao();
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static synchronized MovieDatabase getInstance(Context context) {
         if (instance == null) {
@@ -25,25 +30,4 @@ public abstract class MovieDatabase extends RoomDatabase {
         }
         return instance;
     }
-
-//    private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
-//        @Override
-//        public void onCreate(@NonNull SupportSQLiteDatabase database) {
-//            super.onCreate(database);
-//        }
-//    };
-//
-//    private static class PopulatedDbAsyncTask extends AsyncTask<Void, Void, Void> {
-//
-//        private MoviesDao moviesDao;
-//        private PopulatedDbAsyncTask(MovieDatabase database) {
-//            moviesDao = database.moviesDao();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//
-//            return null;
-//        }
-//    }
 }

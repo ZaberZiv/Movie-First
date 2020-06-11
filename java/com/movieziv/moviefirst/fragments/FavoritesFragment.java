@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.JobIntentService;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,13 +15,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movieziv.moviefirst.R;
-import com.movieziv.moviefirst.activities.MovieDetailActivity;
 import com.movieziv.moviefirst.adapter.MoviesAdapter;
 import com.movieziv.moviefirst.database.TableMovies;
 import com.movieziv.moviefirst.eventbus.ResultEventBus;
 import com.movieziv.moviefirst.retrofit.movies.Result;
 import com.movieziv.moviefirst.viewmodel.DbViewModel;
-import com.movieziv.moviefirst.viewmodel.DetailsViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,7 +30,7 @@ import java.util.List;
 public class FavoritesFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private DbViewModel mDbViewModel;
-    private ArrayList<Result> mList = new ArrayList<>();
+    private static ArrayList<Result> mList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -52,18 +49,13 @@ public class FavoritesFragment extends Fragment {
                 false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mList.clear();
-        load();
-        return view;
-    }
-
-    private void load() {
         mDbViewModel.getMovies().observe(this, new Observer<List<TableMovies>>() {
             @Override
             public void onChanged(List<TableMovies> tableMovies) {
-                mDbViewModel.getResultobj(tableMovies);
+                mDbViewModel.getResultObject(tableMovies);
             }
         });
+        return view;
     }
 
     @Subscribe
@@ -77,6 +69,7 @@ public class FavoritesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        mList.clear();
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.movieziv.moviefirst.database.MovieDatabase;
 import com.movieziv.moviefirst.database.MoviesDao;
 import com.movieziv.moviefirst.database.TableMovies;
 import com.movieziv.moviefirst.eventbus.ResultEventBus;
+import com.movieziv.moviefirst.fragments.FavoritesFragment;
 import com.movieziv.moviefirst.retrofit.JSONPlaceHolderApi;
 import com.movieziv.moviefirst.retrofit.RetrofitInstance;
 import com.movieziv.moviefirst.retrofit.movies.Movies;
@@ -41,7 +42,6 @@ public class RetrofitRepository {
     private MutableLiveData<List<Result>> mutableLiveData6 = new MutableLiveData<>();
     private MutableLiveData<List<Result>> mutableLiveData7 = new MutableLiveData<>();
     private MutableLiveData<Movies> mutableLiveData8 = new MutableLiveData<>();
-    private MutableLiveData<List<Result>> mutableLiveData9 = new MutableLiveData<>();
     private MutableLiveData<String> mutableLiveDataString = new MutableLiveData<>();
 
     private Application application;

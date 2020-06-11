@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.movieziv.moviefirst.R;
+import com.movieziv.moviefirst.fragments.FavoritesFragment;
 import com.movieziv.moviefirst.retrofit.GlideImage;
 import com.movieziv.moviefirst.retrofit.movies.Result;
 import com.movieziv.moviefirst.activities.MovieDetailActivity;

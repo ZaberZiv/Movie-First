@@ -117,22 +117,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         mStarImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableMovies tableMovies = new TableMovies();
 
                 if (mActiveFlag == 1) {
-                    tableMovies.setFav_flag(mActiveFlag);
-                    tableMovies.setMovie_id(mMovie_ID);
-
-                    mDbViewModel.deleteFavMovie(tableMovies);
+                    mDbViewModel.deleteMovieVM(mMovie_ID);
                     Log.i("StarDeleted", "Object removed: id " + mMovie_ID + ", flag " + mActiveFlag);
-
                     mStarImageView.setImageResource(R.drawable.ic_star_border_black_24dp);
                 } else {
                     mActiveFlag = 1;
-                    tableMovies.setFav_flag(mActiveFlag);
-                    tableMovies.setMovie_id(mMovie_ID);
 
-                    mDbViewModel.addFavMovie(tableMovies);
+                    mDbViewModel.addFavMovie(new TableMovies(mMovie_ID, mActiveFlag));
                     Log.i("StarADDed", "Object added: id " + mMovie_ID + ", flag " + mActiveFlag);
 
                     mStarImageView.setImageResource(R.drawable.ic_star_black_24dp);
@@ -179,7 +172,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     // Get genre and budget from DetailsViewModel
     public void getGenreAndBudget() {
-        mDetailsViewModel.getMovieDetails(mMovie_ID).observe(MovieDetailActivity.this, new Observer<Movies>() {
+        mDetailsViewModel.getMovieDetails(mMovie_ID).observe(MovieDetailActivity.this,
+                new Observer<Movies>() {
             @Override
             public void onChanged(Movies movies) {
                 // Get genre
@@ -202,7 +196,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     // Get similar movies from DetailsViewModel
     private void getSimilarMovies() {
-        mDetailsViewModel.getSimilarMovie(mMovie_ID).observe(MovieDetailActivity.this, new Observer<List<Result>>() {
+        mDetailsViewModel.getSimilarMovie(mMovie_ID).observe(MovieDetailActivity.this,
+                new Observer<List<Result>>() {
             @Override
             public void onChanged(List<Result> resultsList) {
                 adapterMethod(mRecyclerView, (ArrayList<Result>) resultsList, 0);

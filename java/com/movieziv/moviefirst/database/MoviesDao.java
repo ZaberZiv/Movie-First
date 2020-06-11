@@ -2,27 +2,20 @@ package com.movieziv.moviefirst.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
 @Dao
 public interface MoviesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(TableMovies movies);
 
-    @Update
-    void update(TableMovies movies);
-
-    @Delete
-    void delete(TableMovies movies);
-
-    @Query("DELETE FROM movie_table")
-    void deleteAllMovies();
+    @Query("DELETE FROM movie_table WHERE movie_id==:movieID")
+    void deleteMovie(int movieID);
 
     @Query("SELECT * FROM movie_table")
     LiveData<List<TableMovies>> getAllMovies();
