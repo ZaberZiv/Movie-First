@@ -9,6 +9,7 @@ Google Play Market: https://play.google.com/store/apps/details?id=com.movieziv.m
 - LiveData
 
 Other libraries:
+- Fragment
 - Retrofit
 - EventBus
 - RecyclerView</b>
