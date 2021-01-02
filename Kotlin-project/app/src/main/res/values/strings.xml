@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">MovieFirstKotlin</string>
+    <string name="title_movie_details_activity">Movie Details</string>
+
+    <string name="nav_movie">Movies</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_favorite">Favorite</string>
+
+    <string name="favorites_title">Favorites movies</string>
+    <string name="search_title">Search The Movie</string>
+    <string name="hint">Terminator</string>
+    <string name="show_all_movies">Show All Movies</string>
+
+    <string name="menu_see_all">See All</string>
+    <string name="menu_upcoming">Upcoming Movies</string>
+    <string name="menu_popular">Popular Movies</string>
+    <string name="menu_top_rated">Top Rated Movies</string>
+    <string name="menu_choose_genre">Choose Genre</string>
+
+    <string name="movie_genre">Genre</string>
+    <string name="movie_budget">Budget</string>
+    <string name="sec_title_release_date">Release Date</string>
+    <string name="sec_title_rating">Rating</string>
+    <string name="button_watch_trailer">Watch Trailer</string>
+    <string name="movie_overview">Overview</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="title_activity_movie_list">MovieListActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+</resources>
