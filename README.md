@@ -3,16 +3,24 @@ Movie Application: my second app that takes info from https://www.themoviedb.org
 
 Google Play Market: https://play.google.com/store/apps/details?id=com.movieziv.moviefirst
 
-<b>Architecture components were used in the development of this application.
+<b>KOTLIN - project
+- MVVM
+- Room
+- LiveData
+- View Binding
+- RxJava
+- Retrofit</b>
+
+<b>JAVA - project
+Architecture components were used in the development of this application.
 - Room
 - ViewModel
 - LiveData
 
 Other libraries:
-- Fragment
+- Fragments
 - Retrofit
-- EventBus
-- RecyclerView</b>
+- EventBus</b>
 
 It shows to Users upcoming, top-rated and popular movies. 
 
